@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hu.baddelbook">
    <application
-        android:label="baddelbook"
+        android:label="BADDEL BOOK"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

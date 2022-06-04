@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomTextFiled extends StatelessWidget {
-  const CustomTextFiled({
+   CustomTextFiled({
     Key? key,
     required this.hint,
     required this.text,
@@ -24,7 +24,7 @@ class CustomTextFiled extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).textSelectionColor,
               fontSize: 14,
               fontFamily: 'Gotham',
               fontWeight: FontWeight.bold),
@@ -36,20 +36,20 @@ class CustomTextFiled extends StatelessWidget {
           onSaved: onSaved,
           textInputAction: TextInputAction.done,
           textAlign: TextAlign.start,
-          cursorColor: Colors.white,
+          cursorColor: Theme.of(context).textSelectionColor,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(0),
+            contentPadding:  EdgeInsets.all(0),
             hintStyle: TextStyle(
               color: Theme.of(context).textSelectionColor,
             ),
-            border: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
-            enabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
-            disabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
-            focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
+            border:  UnderlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).textSelectionColor)),
+            enabledBorder:  UnderlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).textSelectionColor)),
+            disabledBorder:  UnderlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).textSelectionColor)),
+            focusedBorder:  UnderlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).textSelectionColor)),
           ),
         ),
       ],

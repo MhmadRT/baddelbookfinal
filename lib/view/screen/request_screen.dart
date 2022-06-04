@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:baddelbook/model/book.dart';
 import 'package:baddelbook/model/order.dart';
+import 'package:baddelbook/view/screen/bookdeatils_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../model/user.dart';
 import '../../viewModel/login_viewmodel.dart';
 import '../widget/loading_widget.dart';
@@ -35,26 +37,35 @@ class _RequestScreenState extends State<RequestScreen> {
               Text(
                 'request'.tr,
                 style: TextStyle(
-                    fontSize: 39,
-                    color: Get.theme.textSelectionColor,
-                    fontWeight: FontWeight.bold,
-                    ),
+                  fontSize: 39,
+                  color: Get.theme.textSelectionColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               FutureBuilder(
                   future: getData(),
                   builder: (context, AsyncSnapshot<List<Order>> data) {
                     if (data.connectionState == ConnectionState.waiting)
                       return LoadingWidget();
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: data.data?.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 15.0),
-                          child: orderCard(data.data![index]),
-                        );
-                      },
+
+                    if (data.data?.isNotEmpty??false)
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: data.data?.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 15.0),
+                            child: orderCard(data.data![index]),
+                          );
+                        },
+                      );
+                    return Center(
+                      child: Icon(
+                        Icons.inbox_sharp,
+                        color: Get.theme.textSelectionColor.withOpacity(.3),
+                        size: 40,
+                      ),
                     );
                   }),
               SizedBox(
@@ -222,7 +233,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: ()async {
+                                onTap: () async {
                                   final Uri launchUri = Uri(
                                     scheme: 'tel',
                                     path: user.phoneNumber,
@@ -255,35 +266,40 @@ class _RequestScreenState extends State<RequestScreen> {
   }
 
   Widget bookCard(Book book) {
-    return SizedBox(
-      width: 60,
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: CachedNetworkImage(
-              imageUrl: book.imageUrl ?? "",
-              height: 80,
-              width: 60,
-              fit: BoxFit.cover,
-              placeholder: (context, url) =>
-                  Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+    return GestureDetector(
+      onTap: (){
+        Get.to(BookDetails(book: book));
+      },
+      child: SizedBox(
+        width: 60,
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: book.imageUrl ?? "",
+                height: 80,
+                width: 60,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 7,
-          ),
-          Text(
-            book.title ?? "",
-            maxLines: 1,
-            style: TextStyle(
-              fontSize: 11,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+            SizedBox(
+              height: 7,
             ),
-          ),
-        ],
+            Text(
+              book.title ?? "",
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 11,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

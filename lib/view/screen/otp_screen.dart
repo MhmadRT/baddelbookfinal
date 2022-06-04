@@ -30,6 +30,7 @@ class OTPScreen extends StatelessWidget {
           child: GetBuilder<LoginController>(
               init: LoginController(),
               builder: (controller) {
+                controller.isRegister = false;
                 return SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +44,7 @@ class OTPScreen extends StatelessWidget {
                       ),
                       Text('loginToGetStarted'.tr,
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Theme.of(context).textSelectionColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 23)),
                       const SizedBox(
@@ -77,7 +78,10 @@ class OTPScreen extends StatelessWidget {
                                   height: 45,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16),
-                                    border: Border.all(color: Colors.white),
+                                    border: Border.all(
+                                      color:
+                                          Theme.of(context).textSelectionColor,
+                                    ),
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -88,15 +92,16 @@ class OTPScreen extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.arrow_drop_down,
-                                          color: Colors.white,
+                                          color: Theme.of(context)
+                                              .textSelectionColor,
                                           size: 30,
                                         ),
                                         Text(
                                           controller.countryCode?.dialCode ??
                                               '',
                                           style: TextStyle(
-                                              color:
-                                                  Colors.white.withOpacity(0.5),
+                                              color: Theme.of(context)
+                                                  .textSelectionColor,
                                               fontSize: 15),
                                         ),
                                       ],
@@ -169,11 +174,13 @@ class OTPScreen extends StatelessWidget {
                           onTap: () {
                             Get.to(RegisterScreen());
                           },
-                          child:Wrap(
+                          child: Wrap(
                             children: [
                               Text(
-                                'dontHaveAnAccount'.tr+',',
-                                style: TextStyle(color: Colors.white),
+                                'dontHaveAnAccount'.tr + ',',
+                                style: TextStyle(
+                                  color: Theme.of(context).textSelectionColor,
+                                ),
                               ),
                               SizedBox(
                                 width: 5,
@@ -186,6 +193,10 @@ class OTPScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+
+                      SizedBox(
+                        height: 30,
+                      ),
                     ],
                   ),
                 );

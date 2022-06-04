@@ -541,7 +541,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             Icon(
                               Icons.logout,
-                              color: Colors.white,
+                              color: Theme.of(context).textSelectionColor,
                             ),
                             Text(
                               'signOut'.tr,

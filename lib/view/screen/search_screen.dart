@@ -27,7 +27,9 @@ class _SearchScreenState extends State<SearchScreen> {
         title: Text(
           'search'.tr,
           style: TextStyle(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+              color: Get.theme.textSelectionColor,
+              fontSize: 24,
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
@@ -47,12 +49,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   hintText: "search".tr,
                   // ignore: deprecated_member_use
-                  suffixIcon: const Icon(
+                  suffixIcon: Icon(
                     Icons.search,
-                    color: Colors.white,
+                    color: Get.theme.textSelectionColor,
                   ),
-                  hintStyle: const TextStyle(
-                      color: Colors.white,
+                  hintStyle:  TextStyle(
+                      color: Get.theme.textSelectionColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 15),
                   border: OutlineInputBorder(
@@ -80,7 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      crossAxisSpacing: 0.0,
+                      crossAxisSpacing: 10.0,
                       mainAxisSpacing: 9.0,
                       childAspectRatio: .7),
                   itemCount: data.data?.length,
@@ -93,7 +95,6 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
     );
   }
-
 
   Future<List<Book>> getData() async {
     List<Book> books = [];

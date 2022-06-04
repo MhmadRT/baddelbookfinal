@@ -26,6 +26,7 @@ const Map<String, String> en = {
   'myBook':'MY BOOK',
   'help':'Help',
   ///
+
   'lightMode': 'Light Mode',
   'darkMode': 'Dark Mode',
   'title': "Title",

@@ -50,23 +50,24 @@ class _FormFieldState extends State<FormFieldText> {
                 style: TextStyle(color: Get.theme.textSelectionColor),
               )
             : Text(widget.label ?? ""),
+
         suffixIcon: widget.sIcon,
         // labelText: widget.label,
         hintStyle: TextStyle(color: Color(0xff414852), fontSize: 15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
           // ignore: deprecated_member_use
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: Theme.of(context).textSelectionColor),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
           // ignore: deprecated_member_use
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: Theme.of(context).textSelectionColor),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
           // ignore: deprecated_member_use
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: Theme.of(context).textSelectionColor),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),

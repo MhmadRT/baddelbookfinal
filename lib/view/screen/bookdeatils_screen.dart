@@ -102,7 +102,8 @@ class _BookDetailsState extends State<BookDetails> {
                             widget.book.title ?? "",
                             style: TextStyle(
                                 fontSize: 39,
-                                color: Colors.white,
+                                color: Theme.of(context)
+                                    .textSelectionColor,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Gotham'),
                           ),
@@ -141,7 +142,8 @@ class _BookDetailsState extends State<BookDetails> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 13,
-                                color: Colors.white,
+                                color: Theme.of(context)
+                                    .textSelectionColor,
                                 fontWeight: FontWeight.w300,
                                 fontFamily: 'Gotham'),
                           ),
@@ -154,59 +156,59 @@ class _BookDetailsState extends State<BookDetails> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7),
                               color: Theme.of(context).accentColor),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                'bookStatus'.tr,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal:8.0),
+                            child: Row(
+
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'bookStatus'.tr,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 134,
-                              ),
-                              StreamBuilder(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('BookStatuse')
-                                      .doc(widget.book.bookStatus ?? '')
-                                      .snapshots(),
-                                  builder: (context, AsyncSnapshot snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting)
-                                      return LoadingWidget();
-                                    return Row(
-                                      children: [
-                                        Text(
-                                          snapshot.data.data()['name'],
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Theme.of(context)
-                                                .textSelectionColor,
-                                            fontWeight: FontWeight.bold,
+
+                                StreamBuilder(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('BookStatuse')
+                                        .doc(widget.book.bookStatus ?? '')
+                                        .snapshots(),
+                                    builder: (context, AsyncSnapshot snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting)
+                                        return LoadingWidget();
+                                      return Row(
+                                        children: [
+                                          Text(
+                                            snapshot.data.data()['name'],
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Theme.of(context)
+                                                  .textSelectionColor,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 15,
-                                        ),
-                                        Container(
-                                          height: 11,
-                                          width: 11,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            color: Color(int.parse(
-                                                '0xff${snapshot.data.data()['color']}')),
+                                          SizedBox(
+                                            width: 15,
                                           ),
-                                        ),
-                                      ],
-                                    );
-                                  }),
-                            ],
+                                          Container(
+                                            height: 11,
+                                            width: 11,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              color: Color(int.parse(
+                                                  '0xff${snapshot.data.data()['color']}')),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }),
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -217,47 +219,46 @@ class _BookDetailsState extends State<BookDetails> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7),
                               color: Theme.of(context).accentColor),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                'bookAge'.tr,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal:8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+
+                                Text(
+                                  'bookAge'.tr,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 100,
-                              ),
-                              Expanded(
-                                child: Container(
+
+                                Container(
                                   height: 34,
-                                  width: 154,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
-                                    color: Color(0xff0F1825),
+                                    color:Get.theme.backgroundColor,
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      '${widget.book.bookAge} ' + 'years'.tr,
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: Theme.of(context)
-                                            .textSelectionColor,
-                                        fontWeight: FontWeight.bold,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text(
+                                        '${widget.book.bookAge} ' + 'years'.tr,
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: Theme.of(context)
+                                              .textSelectionColor,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                            ],
+
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -277,7 +278,7 @@ class _BookDetailsState extends State<BookDetails> {
                                           fontSize: 14,
                                           color: Theme.of(context).primaryColor,
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'Gotham'),
+                                 ),
                                     ),
                                     SizedBox(
                                       height: 20,
@@ -355,8 +356,8 @@ class _BookDetailsState extends State<BookDetails> {
                                       await doc.set(order.toJson());
                                       Get.back();
                                       HelperWidgets.errorBar(
-                                          title: 'successfully',
-                                          message: 'sentOrderSuccessfully',
+                                          title: 'successfully'.tr,
+                                          message: 'sentOrderSuccessfully'.tr,
                                           icon: Icon(
                                             Icons.check,
                                             color: Colors.green,

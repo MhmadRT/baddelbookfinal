@@ -32,10 +32,11 @@ class HomeScreen extends StatelessWidget {
                   .doc(uid.value ?? '')
                   .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {
-                if(snapshot.connectionState==ConnectionState.waiting)
+                if (snapshot.connectionState == ConnectionState.waiting)
                   return Center(child: LoadingWidget());
-                var userData=snapshot.data;
-                UserModel user=UserModel.fromJson(json.decode(json.encode(userData.data())));
+                var userData = snapshot.data;
+                UserModel user = UserModel.fromJson(
+                    json.decode(json.encode(userData.data())));
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
@@ -43,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          user.fullName??"",
+                          user.fullName ?? "",
                           style: TextStyle(
                               color: Theme.of(context).textSelectionColor,
                               fontSize: 24,
@@ -57,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                           width: 63,
                           color: Get.theme.textSelectionColor,
                           child: CachedNetworkImage(
-                            imageUrl: user.imageUrl??"",
+                            imageUrl: user.imageUrl ?? "",
                             fit: BoxFit.cover,
                             placeholder: (context, url) =>
                                 CircularProgressIndicator(),
@@ -84,14 +85,14 @@ class HomeScreen extends StatelessWidget {
                 child: TextFormField(
                   enabled: false,
                   decoration: InputDecoration(
-                    fillColor:Get.theme.accentColor,
+                    fillColor: Get.theme.accentColor,
                     filled: true,
                     hintText: "search".tr,
                     suffixIcon: Icon(
                       Icons.search,
                       color: Get.theme.textSelectionColor,
                     ),
-                    hintStyle:  TextStyle(
+                    hintStyle: TextStyle(
                         color: Get.theme.textSelectionColor,
                         fontWeight: FontWeight.normal,
                         fontSize: 15),
@@ -237,6 +238,9 @@ class HomeScreen extends StatelessWidget {
                             },
                           ));
               }),
+          SizedBox(
+            height: 90,
+          ),
         ],
       ),
     );

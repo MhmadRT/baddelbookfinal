@@ -9,9 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../model/user.dart';
 import '../../viewModel/login_viewmodel.dart';
 import '../widget/loading_widget.dart';
+import 'bookdeatils_screen.dart';
 
 class InboxScreen extends StatefulWidget {
   const InboxScreen({Key? key}) : super(key: key);
@@ -46,16 +48,24 @@ class _InboxScreenState extends State<InboxScreen> {
                   builder: (context, AsyncSnapshot<List<Order>> data) {
                     if (data.connectionState == ConnectionState.waiting)
                       return LoadingWidget();
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: data.data?.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 15.0),
-                          child: orderCard(data.data![index]),
-                        );
-                      },
+                    if (data.data?.isNotEmpty ?? false)
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: data.data?.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 15.0),
+                            child: orderCard(data.data![index]),
+                          );
+                        },
+                      );
+                    return Center(
+                      child: Icon(
+                        Icons.inbox_sharp,
+                        color: Get.theme.textSelectionColor.withOpacity(.3),
+                        size: 40,
+                      ),
                     );
                   }),
               SizedBox(
@@ -255,16 +265,14 @@ class _InboxScreenState extends State<InboxScreen> {
                     child: MaterialButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
-                      onPressed: () async{
+                      onPressed: () async {
                         HelperWidgets.loading();
                         await FirebaseFirestore.instance
                             .collection('Transactions')
                             .doc(order.id)
                             .update({'status': '3'});
                         Get.back();
-                        setState(() {
-
-                        });
+                        setState(() {});
                       },
                       color: Colors.green,
                       child: Text(
@@ -287,9 +295,7 @@ class _InboxScreenState extends State<InboxScreen> {
                             .doc(order.id)
                             .update({'status': '2'});
                         Get.back();
-                        setState(() {
-
-                        });
+                        setState(() {});
                       },
                       color: Colors.red,
                       child: Text(
@@ -307,35 +313,40 @@ class _InboxScreenState extends State<InboxScreen> {
   }
 
   Widget bookCard(Book book) {
-    return SizedBox(
-      width: 60,
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: CachedNetworkImage(
-              imageUrl: book.imageUrl ?? "",
-              height: 80,
-              width: 60,
-              fit: BoxFit.cover,
-              placeholder: (context, url) =>
-                  Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+    return GestureDetector(
+      onTap: (){
+        Get.to(BookDetails(book: book));
+      },
+      child: SizedBox(
+        width: 60,
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: book.imageUrl ?? "",
+                height: 80,
+                width: 60,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 7,
-          ),
-          Text(
-            book.title ?? "",
-            maxLines: 1,
-            style: TextStyle(
-              fontSize: 11,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+            SizedBox(
+              height: 7,
             ),
-          ),
-        ],
+            Text(
+              book.title ?? "",
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 11,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

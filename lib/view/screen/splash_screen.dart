@@ -4,8 +4,10 @@ import 'package:baddelbook/view/screen/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../main.dart';
 import '../../viewModel/login_viewmodel.dart';
 import 'otp_screen.dart';
 
@@ -44,10 +46,21 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              'images/logo2.svg',
-              height: 150,
+            Container(
               width: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                color:
+                themeMode.value == ThemeMode.dark ? null : Get.theme.accentColor,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.asset(
+                  'images/logo2.svg',
+                  height: 150,
+                  width: 150,
+                ),
+              ),
             ),
             CupertinoActivityIndicator(),
           ],
