@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "20511945147",
+    "project_id": "baddel-book-f4cb3",
+    "storage_bucket": "baddel-book-f4cb3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20511945147:android:4cae8f7d07b03f8ded549e",
+        "android_client_info": {
+          "package_name": "com.hu.baddelbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20511945147-7s0ip23a2nru1k21kpt5uu9h3lnemvo5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkGuyyqryAhWyp8Pb2Es7FpSXjMmJ_EGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20511945147-7s0ip23a2nru1k21kpt5uu9h3lnemvo5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "20511945147-46i98oifjotfajaihl8ssqba8t6kpll9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hu.baddelbook"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
